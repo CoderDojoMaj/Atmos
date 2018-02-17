@@ -1,5 +1,5 @@
 #Other imports
-import time
+import time, parseData
 
 #Logging Config
 import logging
@@ -11,6 +11,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 
 #Commands
+
 kbds={
 	"Principal": [[InlineKeyboardButton("Temperatura",
 	callback_data='Temperatura'),
@@ -31,14 +32,16 @@ kbds={
 	
 	"Humedad": [[InlineKeyboardButton("Humedad Actual",
 	callback_data='HActual'),
-	InlineKeyboardButton("¿Llueve?",
-	callback_data='HLluvia')],
+	InlineKeyboardButton("Sensor de Agua",
+	callback_data='HAgua')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
 	
 	"Luz": [[InlineKeyboardButton("Luminosidad Máx.",
 	callback_data='LMax'),
 	InlineKeyboardButton("Luminosidad Min.",
-	callback_data='LMin')],
+	callback_data='LMin'),
+        InlineKeyboardButton("Luminosidad Actual",
+	callback_data='LActual')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]]
 }
 
@@ -59,6 +62,14 @@ def updatemenu(bot, update, query, msgId, kbdId):
         if(kbdId=='@back'):
             updatemenu(bot, update, query, msgId, "Principal")
             return
+        elif (kbdId=='TActual'):
+            bot.send_message(chat_id=chat_id, text="Temperatura Actual: "+parseData.readTHWL(parseData.data)[0])
+        elif (kbdId=='HActual'):
+            bot.send_message(chat_id=chat_id, text="Humedad Actual: "+parseData.readTHWL(parseData.data)[1])
+        elif (kbdId=='HAgua'):
+            bot.send_message(chat_id=chat_id, text="Sensor de Agua: "+parseData.readTHWL(parseData.data)[2])
+        elif (kbdId=='LActual'):
+            bot.send_message(chat_id=chat_id, text="Luminosidad Actual: "+parseData.readTHWL(parseData.data)[3])
         invalidMsg = bot.send_message(chat_id=query.message.chat_id,
                          text="Id Inválida")
         time.sleep(3)

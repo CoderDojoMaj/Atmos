@@ -1,6 +1,4 @@
-data=input("Data (separa con \";\") Temp,Hum,Water,Light: ")
-data=data.split(";")
-
+import serial, time
 def readT(data):
     tok=""
     temp=""
@@ -11,7 +9,7 @@ def readT(data):
             tempStart=True
             tok=""
         elif tempStart==True:
-            if char in "0123456789":
+            if char in list("0123456789"):
                 temp+=char
             elif char=="º" or char=="C":
                 tempStart=False
@@ -28,7 +26,7 @@ def readH(data):
             humStart=True
             tok=""
         elif humStart==True:
-            if char in "0123456789":
+            if char in list("0123456789"):
                 hum+=char
             elif char=="%":
                 humStart=False
@@ -45,7 +43,7 @@ def readW(data):
             watStart=True
             tok=""
         elif watStart==True:
-            if char in "0123456789":
+            if char in list("0123456789"):
                 wat+=char
             elif char=="%":
                 watStart=False
@@ -62,7 +60,7 @@ def readL(data):
             lightStart=True
             tok=""
         elif lightStart==True:
-            if char in "0123456789":
+            if char in list("0123456789"):
                 light+=char
             elif char=="%":
                 lightStart=False
@@ -77,4 +75,12 @@ def readTHWL(data):
     l=readL(data[3])
     return t,h,w,l
 
-print(readTHWL(data))
+arduino = serial.Serial('COM5', 9600)
+data=""
+while True:
+    rawString = arduino.readline()
+    
+    data=rawString.decode('unicode_escape')
+    data=data[:-1]
+    data=data.split(";")
+arduino.close()

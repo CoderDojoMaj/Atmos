@@ -75,7 +75,8 @@ def readTHWL(data):
     l=readL(data[3])
     return t,h,w,l
 
-arduino = serial.Serial('COM5', 9600)
+serial_port = input('Serial port: ')
+arduino = serial.Serial(serial_port, 9600)
 data=""
 while True:
     rawString = arduino.readline()

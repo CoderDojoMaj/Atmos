@@ -75,13 +75,20 @@ def readTHWL(data):
     l=readL(data[3])
     return t,h,w,l
 
-serial_port = input('Serial port: ')
-arduino = serial.Serial(serial_port, 9600)
-data=""
-while True:
+arduino = serial.Serial('COM5', 9600)
+data=[]
+var=0
+def tvar():
+    global var
+    if var == 0:
+        var=1
+    else:
+        var=0
+
+while var==1:
     rawString = arduino.readline()
     
     data=rawString.decode('unicode_escape')
     data=data[:-1]
     data=data.split(";")
-arduino.close()
+    tvar()

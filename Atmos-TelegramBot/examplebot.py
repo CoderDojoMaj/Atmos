@@ -63,13 +63,21 @@ def updatemenu(bot, update, query, msgId, kbdId):
             updatemenu(bot, update, query, msgId, "Principal")
             return
         elif (kbdId=='TActual'):
-            bot.send_message(chat_id=chat_id, text="Temperatura Actual: "+parseData.readTHWL(parseData.data)[0])
+            parseData.tvar()
+            bot.send_message(chat_id=query.message.chat_id, text="Temperatura Actual: "+parseData.readTHWL(parseData.data)[0])
+            return
         elif (kbdId=='HActual'):
-            bot.send_message(chat_id=chat_id, text="Humedad Actual: "+parseData.readTHWL(parseData.data)[1])
+            parseData.tvar()
+            bot.send_message(chat_id=query.message.chat_id, text="Humedad Actual: "+parseData.readTHWL(parseData.data)[1])
+            return
         elif (kbdId=='HAgua'):
-            bot.send_message(chat_id=chat_id, text="Sensor de Agua: "+parseData.readTHWL(parseData.data)[2])
+            parseData.tvar()
+            bot.send_message(chat_id=query.message.chat_id, text="Sensor de Agua: "+parseData.readTHWL(parseData.data)[2])
+            return
         elif (kbdId=='LActual'):
-            bot.send_message(chat_id=chat_id, text="Luminosidad Actual: "+parseData.readTHWL(parseData.data)[3])
+            parseData.tvar()
+            bot.send_message(chat_id=query.message.chat_id, text="Luminosidad Actual: "+parseData.readTHWL(parseData.data)[3])
+            return
         invalidMsg = bot.send_message(chat_id=query.message.chat_id,
                          text="Id Inválida")
         time.sleep(3)

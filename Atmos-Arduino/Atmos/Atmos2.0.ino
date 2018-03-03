@@ -15,7 +15,7 @@ void loop() {
     DHT11.read(DHT11PIN);
     Serial.print("TEMP = ");
     Serial.print(DHT11.temperature);
-    Serial.print("°C;");
+    Serial.print(";");
     Serial.print("HUM = ");
     Serial.print(DHT11.humidity);
     Serial.print(";");

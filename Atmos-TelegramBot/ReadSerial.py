@@ -1,5 +1,7 @@
 import serial, time
-arduino = serial.Serial('COM7', 9600)
+port = input("What is the Arduino port?")
+baud = input("What is the baud rate? (Default is 9600)")
+arduino = serial.Serial(port, baud)
 while True:
     time.sleep(2)
     rawString = arduino.readline()

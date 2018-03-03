@@ -15,13 +15,14 @@ void loop() {
     DHT11.read(DHT11PIN);
     Serial.print("TEMP = ");
     Serial.print(DHT11.temperature);
-    Serial.println("°C");
+    Serial.print(";");
     Serial.print("HUM = ");
-    Serial.println(DHT11.humidity);
+    Serial.print(DHT11.humidity);
+    Serial.print(";");
     Serial.print("WATER = ");
-    Serial.println(analogRead(water));
+    Serial.print(analogRead(water));
+    Serial.print(";");
     Serial.print("LIGHT = ");
     Serial.println(analogRead(light));
-    Serial.println()
     delay(500);
 }

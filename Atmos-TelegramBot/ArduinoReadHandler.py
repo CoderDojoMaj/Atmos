@@ -5,7 +5,7 @@ class ArduinoHandler(Handler):
         self.pass_update_queue = False
         self.pass_job_queue = False
         self.pass_user_data = False
-        self.pass_user_data = False
+        self.pass_chat_data = False
         self.callback = callback
 
     def check_update(self, update):

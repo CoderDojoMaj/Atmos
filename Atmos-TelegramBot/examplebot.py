@@ -19,7 +19,7 @@ kbds={
 	callback_data='Humedad')],
 	[InlineKeyboardButton("Luz",
 	callback_data='Luz')]],
-	
+
 	"Temperatura": [[InlineKeyboardButton("Temp. Máx.",
 	callback_data='TMax'),
 	InlineKeyboardButton("Temp. Min",
@@ -29,13 +29,13 @@ kbds={
 	InlineKeyboardButton("Temp. Actual",
 	callback_data='TActual')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
-	
+
 	"Humedad": [[InlineKeyboardButton("Humedad Actual",
 	callback_data='HActual'),
 	InlineKeyboardButton("Sensor de Agua",
 	callback_data='HAgua')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
-	
+
 	"Luz": [[InlineKeyboardButton("Luminosidad Máx.",
 	callback_data='LMax'),
 	InlineKeyboardButton("Luminosidad Min.",
@@ -50,33 +50,34 @@ def opt(bot, update):
 
     update.message.reply_text('Menú principal', reply_markup=reply_markup)
 
-def updatemenu(bot, update, query, msgId, kbdId):    
+def updatemenu(bot, update, query, msgId, kbdId):
     try:
         reply_markup = InlineKeyboardMarkup(kbds[kbdId])
-        
+
         bot.edit_message_text(text="Menú %s" % kbdId,
                                   chat_id=query.message.chat_id,
                                   message_id=query.message.message_id,
                                   reply_markup=reply_markup)
     except KeyError:
+        data = parseData.readArduino([])
         if(kbdId=='@back'):
             updatemenu(bot, update, query, msgId, "Principal")
-            return
+            return parseData.readArduino([])
         elif (kbdId=='TActual'):
             parseData.tvar()
-            bot.send_message(chat_id=query.message.chat_id, text="Temperatura Actual: "+parseData.readTHWL(parseData.data)[0])
+            bot.send_message(chat_id=query.message.chat_id, text="Temperatura Actual: "+parseData.readTHWL(data)[0])
             return
         elif (kbdId=='HActual'):
             parseData.tvar()
-            bot.send_message(chat_id=query.message.chat_id, text="Humedad Actual: "+parseData.readTHWL(parseData.data)[1])
+            bot.send_message(chat_id=query.message.chat_id, text="Humedad Actual: "+parseData.readTHWL(data)[1])
             return
         elif (kbdId=='HAgua'):
             parseData.tvar()
-            bot.send_message(chat_id=query.message.chat_id, text="Sensor de Agua: "+parseData.readTHWL(parseData.data)[2])
+            bot.send_message(chat_id=query.message.chat_id, text="Sensor de Agua: "+parseData.readTHWL(data)[2])
             return
         elif (kbdId=='LActual'):
             parseData.tvar()
-            bot.send_message(chat_id=query.message.chat_id, text="Luminosidad Actual: "+parseData.readTHWL(parseData.data)[3])
+            bot.send_message(chat_id=query.message.chat_id, text="Luminosidad Actual: "+parseData.readTHWL(data)[3])
             return
         invalidMsg = bot.send_message(chat_id=query.message.chat_id,
                          text="Id Inválida")

@@ -1,4 +1,8 @@
-import serial, time
+import serial, time, serial.tools.list_ports
+from multiprocessing import Process
+
+
+
 def readT(data):
     tok=""
     temp=""
@@ -69,26 +73,23 @@ def readL(data):
 
 
 def readTHWL(data):
+    print(data)
     t=readT(data[0])
     h=readH(data[1])
     w=readW(data[2])
     l=readL(data[3])
     return t,h,w,l
 
-arduino = serial.Serial('COM5', 9600)
+arduino = serial.Serial(serial.tools.list_ports.comports()[0].device, 9600)
 data=[]
-var=0
-def tvar():
-    global var
-    if var == 0:
-        var=1
-    else:
-        var=0
 
-while var==1:
+def readArduino(data):
     rawString = arduino.readline()
-    
     data=rawString.decode('unicode_escape')
-    data=data[:-1]
+    data=data[:-2]
     data=data.split(";")
-    tvar()
+    return data
+    
+        
+p=Process(target=readArduino)
+p.start()

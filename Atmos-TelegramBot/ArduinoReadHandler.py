@@ -1,4 +1,4 @@
-import telegram.ext.Handler as Handler
+from telegram.ext import Handler
 
 class ArduinoHandler(Handler):
     def __init__(self, callback):
@@ -7,9 +7,13 @@ class ArduinoHandler(Handler):
         self.pass_user_data = False
         self.pass_chat_data = False
         self.callback = callback
+        self.data=[]
 
     def check_update(self, update):
         return True
 
     def handle_update(self, update, dispatcher):
-        return self.callback()
+        self.data = self.callback(self.data)
+
+    def getData(self):
+        return self.data

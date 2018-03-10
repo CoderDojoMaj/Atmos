@@ -64,19 +64,15 @@ def updatemenu(bot, update, query, msgId, kbdId):
             updatemenu(bot, update, query, msgId, "Principal")
             return parseData.readArduino([])
         elif (kbdId=='TActual'):
-            parseData.tvar()
             bot.send_message(chat_id=query.message.chat_id, text="Temperatura Actual: "+parseData.readTHWL(data)[0])
             return
         elif (kbdId=='HActual'):
-            parseData.tvar()
             bot.send_message(chat_id=query.message.chat_id, text="Humedad Actual: "+parseData.readTHWL(data)[1])
             return
         elif (kbdId=='HAgua'):
-            parseData.tvar()
             bot.send_message(chat_id=query.message.chat_id, text="Sensor de Agua: "+parseData.readTHWL(data)[2])
             return
         elif (kbdId=='LActual'):
-            parseData.tvar()
             bot.send_message(chat_id=query.message.chat_id, text="Luminosidad Actual: "+parseData.readTHWL(data)[3])
             return
         invalidMsg = bot.send_message(chat_id=query.message.chat_id,

@@ -83,7 +83,7 @@ def readTHWL(data):
 arduino = serial.Serial(serial.tools.list_ports.comports()[0].device, 9600)
 data=[]
 
-def readArduino(data):
+def readArduino(data=[]):
     rawString = arduino.readline()
     data=rawString.decode('unicode_escape')
     data=data[:-2]

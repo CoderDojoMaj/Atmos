@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 #Other imports
 import time, parseData
 
@@ -20,7 +21,7 @@ kbds={
 	[InlineKeyboardButton("Luz",
 	callback_data='Luz')]],
 
-	"Temperatura": [[InlineKeyboardButton("Temp. Máx.",
+        "Temperatura": [[InlineKeyboardButton("Temp. Máx.",
 	callback_data='TMax'),
 	InlineKeyboardButton("Temp. Min",
 	callback_data='TMin')],

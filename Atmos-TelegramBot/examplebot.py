@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# coding: utf8
 #Other imports
 import time, parseData
 

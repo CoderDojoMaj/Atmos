@@ -65,7 +65,7 @@ def updatemenu(bot, update, query, msgId, kbdId):
         data = parseData.readArduino([])
         if(kbdId=='@back'):
             updatemenu(bot, update, query, msgId, "Principal")
-            return parseData.readArduino([])
+            return data
         elif (kbdId=='TActual'):
             bot.send_message(chat_id=query.message.chat_id, text="Temperatura Actual: "+parseData.readTHWL(data)[0])
             return
@@ -83,7 +83,8 @@ def updatemenu(bot, update, query, msgId, kbdId):
         time.sleep(3)
         bot.delete_message(chat_id=invalidMsg.chat_id,
                             message_id=invalidMsg.message_id)
-    bot.answer_callback_query(callback_query_id=msgId)
+    query.answer()
+    #bot.answer_callback_query(callback_query_id=msgId)
 
 def button(bot, update):
     query = update.callback_query

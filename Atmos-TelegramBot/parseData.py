@@ -1,6 +1,6 @@
 import serial, time, serial.tools.list_ports
 from multiprocessing import Process
-
+from Utils import sprint
 
 
 def readT(data):
@@ -73,7 +73,7 @@ def readL(data):
 
 
 def readTHWL(data):
-    print(data)
+    sprint(data)
     t=readT(data[0])
     h=readH(data[1])
     w=readW(data[2])
@@ -89,7 +89,7 @@ def readArduino(data=[]):
     data=data[:-2]
     data=data.split(";")
     return data
-    
-        
+
+
 p=Process(target=readArduino)
 p.start()

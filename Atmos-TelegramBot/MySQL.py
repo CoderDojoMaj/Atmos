@@ -2,6 +2,7 @@
 
 import mysql.connector
 from mysql.connector import errorcode
+from Utils import sprint
 
 
 host = '127.0.0.1'
@@ -11,20 +12,21 @@ def getConnection(user, password, database):
                                 database=database)
 
     except mysql.connector.Error as err:
-  if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-    print("Something is wrong with your user name or password")
-  elif err.errno == errorcode.ER_BAD_DB_ERROR:
-    print("Database does not exist")
-  else:
-    print(err)
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            sprint("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            sprint("Database does not exist")
+        else:
+            sprint(err)
 
 
 def run(connection, comm):
     cursor = connection.cursor()
     try:
         cursor.execute(comm)
+        return cursor
     except mysql.connector.Error as err:
-        print("Error running statement: {}".format(err))
+        sprint("Error running statement: {}".format(err))
         exit(1)
 
 
@@ -34,11 +36,12 @@ def create_database(cnx, db):
         cursor.execute(
             "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(db))
     except mysql.connector.Error as err:
-        print("Failed creating database: {}".format(err))
+        sprint("Failed creating database: {}".format(err))
         exit(1)
 
 
 def changeDB(cnx, db):
+    cursor = cnx.cursor()
     try:
         cnx.database = db
     except mysql.connector.Error as err:
@@ -46,5 +49,5 @@ def changeDB(cnx, db):
             create_database(cursor, db)
             cnx.database = db
         else:
-            print(err)
+            sprint(err)
             exit(1)

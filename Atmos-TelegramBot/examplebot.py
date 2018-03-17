@@ -11,6 +11,8 @@ logger = logging.getLogger(__name__)
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 
+from Utils import sprint
+
 #Commands
 
 kbds={

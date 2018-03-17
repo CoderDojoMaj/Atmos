@@ -1,0 +1,28 @@
+The database will be setup this way:
+  - Table 1 (Readings)
+  - Table 2 (Language)
+
+Table 1 {Readings}:
+Columns       Datatype        Extra
+id            int             not null auto_increment primary Key
+daytime       datetime        not null
+temp          int
+hum           int
+water         int
+light         int
+
+Table 2 {Language}:
+Columns     Datatype          Extra
+identifier  varchar(100)      not null primary Key
+langcol1    varchar(100)
+ID of lang; always the same   Always emtpy
+----------------------EXAMPLE----------------------
+EN          varchar(100)              # English
+ES          varchar(100)              # Español
+
+Structure:
+ID         EN           ES
+temp       Temperature  Temperatura
+hum        Humidity     Humedad
+maxm       Maximum      Máximo
+maxf       Maximum      Máxima

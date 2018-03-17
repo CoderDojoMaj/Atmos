@@ -23,7 +23,7 @@ kbds={
 	[InlineKeyboardButton("Luz",
 	callback_data='Luz')]],
 
-        "Temperatura": [[InlineKeyboardButton("Temp. Máx.",
+        "Temperatura": [[InlineKeyboardButton("Temp. Max.",
 	callback_data='TMax'),
 	InlineKeyboardButton("Temp. Min",
 	callback_data='TMin')],
@@ -39,7 +39,7 @@ kbds={
 	callback_data='HAgua')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
 
-	"Luz": [[InlineKeyboardButton("Luminosidad Máx.",
+	"Luz": [[InlineKeyboardButton("Luminosidad Max.",
 	callback_data='LMax'),
 	InlineKeyboardButton("Luminosidad Min.",
 	callback_data='LMin'),
@@ -51,13 +51,13 @@ kbds={
 def opt(bot, update):
     reply_markup = InlineKeyboardMarkup(kbds["Principal"])
 
-    update.message.reply_text('Menú principal', reply_markup=reply_markup)
+    update.message.reply_text('Menu principal', reply_markup=reply_markup)
 
 def updatemenu(bot, update, query, msgId, kbdId):
     try:
         reply_markup = InlineKeyboardMarkup(kbds[kbdId])
 
-        bot.edit_message_text(text="Menú %s" % kbdId,
+        bot.edit_message_text(text="Menu %s" % kbdId,
                                   chat_id=query.message.chat_id,
                                   message_id=query.message.message_id,
                                   reply_markup=reply_markup)
@@ -79,7 +79,7 @@ def updatemenu(bot, update, query, msgId, kbdId):
             bot.send_message(chat_id=query.message.chat_id, text="Luminosidad Actual: "+parseData.readTHWL(data)[3])
             return
         invalidMsg = bot.send_message(chat_id=query.message.chat_id,
-                         text="Id Inválida")
+                         text="Id Invalida")
         time.sleep(3)
         bot.delete_message(chat_id=invalidMsg.chat_id,
                             message_id=invalidMsg.message_id)

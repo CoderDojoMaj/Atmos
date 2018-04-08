@@ -1,5 +1,6 @@
 import sys
 
+
 def sprint(*args):
     r = ''
     for arg in args:

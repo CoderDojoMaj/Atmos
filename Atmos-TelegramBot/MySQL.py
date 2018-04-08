@@ -2,6 +2,7 @@
 
 import mysql.connector
 from mysql.connector import errorcode
+from time import strftime, localtime
 from Utils import sprint
 
 
@@ -51,3 +52,10 @@ def changeDB(cnx, db):
         else:
             sprint(err)
             exit(1)
+
+def addMeteoData(connection, temp, hum, luz, pres):
+    timestamp = strftime('%d-%m-%Y %H:%M:%S', localtime())
+    statement = 'INSERT INTO MeteoData(fecha, temp, hum, luz, pres) VALUES(TIMESTAMP({}), {}, {}, {}, {});'.format(
+        timestamp, temp, hum, luz, pres)
+    sprint(statement)
+    run(connection, statement)

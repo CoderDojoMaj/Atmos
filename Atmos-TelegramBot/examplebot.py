@@ -9,19 +9,21 @@ logger = logging.getLogger(__name__)
 
 #Telegram Bot Code
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 
 from Utils import sprint
 
 #Commands
 
 kbds={
+	# TODO: Update for translation support
+
 	"Principal": [[InlineKeyboardButton("Temperatura",
 	callback_data='Temperatura'),
 	InlineKeyboardButton("Humedad",
 	callback_data='Humedad')],
 	[InlineKeyboardButton("Luz",
-	callback_data='Luz')]],
+	callback_data='Luz')]], # TODO: add pressure button
 
         "Temperatura": [[InlineKeyboardButton("Temp. Max.",
 	callback_data='TMax'),
@@ -46,22 +48,26 @@ kbds={
         InlineKeyboardButton("Luminosidad Actual",
 	callback_data='LActual')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]]
+
+	# TODO: Add pressure menu
 }
 
 def opt(bot, update):
+	# TODO: Update for translation support
     reply_markup = InlineKeyboardMarkup(kbds["Principal"])
-
     update.message.reply_text('Menu principal', reply_markup=reply_markup)
 
 def updatemenu(bot, update, query, msgId, kbdId):
     try:
         reply_markup = InlineKeyboardMarkup(kbds[kbdId])
 
+		# TODO: Update for translation support
         bot.edit_message_text(text="Menu %s" % kbdId,
                                   chat_id=query.message.chat_id,
                                   message_id=query.message.message_id,
                                   reply_markup=reply_markup)
     except KeyError:
+		# TODO: Update for translation support
         data = parseData.readArduino([])
         if(kbdId=='@back'):
             updatemenu(bot, update, query, msgId, "Principal")
@@ -72,12 +78,14 @@ def updatemenu(bot, update, query, msgId, kbdId):
         elif (kbdId=='HActual'):
             bot.send_message(chat_id=query.message.chat_id, text="Humedad Actual: "+parseData.readTHWL(data)[1])
             return
+		# TODO: Remove water sensor
         elif (kbdId=='HAgua'):
             bot.send_message(chat_id=query.message.chat_id, text="Sensor de Agua: "+parseData.readTHWL(data)[2])
             return
         elif (kbdId=='LActual'):
             bot.send_message(chat_id=query.message.chat_id, text="Luminosidad Actual: "+parseData.readTHWL(data)[3])
             return
+		# TODO: Add pressure sensor
         invalidMsg = bot.send_message(chat_id=query.message.chat_id,
                          text="Id Invalida")
         time.sleep(3)

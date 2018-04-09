@@ -57,5 +57,14 @@ def addMeteoData(connection, temp, hum, luz, pres):
     timestamp = strftime('%d-%m-%Y %H:%M:%S', localtime())
     statement = 'INSERT INTO MeteoData(fecha, temp, hum, luz, pres) VALUES(TIMESTAMP({}), {}, {}, {}, {});'.format(
         timestamp, temp, hum, luz, pres)
-    sprint(statement)
+    # sprint(statement)
     run(connection, statement)
+
+# See available languages and text ids in the setupDB.sql file
+def getTranslation(connection, txt_id, lang_code):
+    available_lang_codes = ['EN', 'ES']
+    if lang_code in available_lang_codes:
+        statement = 'SELECT {} FROM Lang WHERE ID = \'{}\''.format(lang_code, txt_id);
+        run(connection, statement)
+    else:
+        sprint(lang_code, 'is not an available language code')

@@ -37,6 +37,7 @@ kbds={
 
 	"Humedad": [[InlineKeyboardButton("Humedad Actual",
 	callback_data='HActual'),
+	# TODO: Remove water sensor
 	InlineKeyboardButton("Sensor de Agua",
 	callback_data='HAgua')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],

@@ -2,11 +2,11 @@
 #include <dht11.h>
 #define DHT11PIN 8
 dht11 DHT11;
-int water = A2;
+int press = A4;
 int light = A5;
 
 void setup() {
-    pinMode(water, INPUT);
+    pinMode(press, INPUT);
     pinMode(light, INPUT);
     Serial.begin(9600);
 }
@@ -19,8 +19,8 @@ void loop() {
     Serial.print("HUM = ");
     Serial.print(DHT11.humidity);
     Serial.print(";");
-    Serial.print("WATER = ");
-    Serial.print(analogRead(water));
+    Serial.print("PRESS = ");
+    Serial.print(analogRead(press));
     Serial.print(";");
     Serial.print("LIGHT = ");
     Serial.println(analogRead(light));

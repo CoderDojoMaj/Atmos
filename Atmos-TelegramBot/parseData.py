@@ -20,6 +20,23 @@ def readT(data):
             tok=""
     return temp
 
+def readP(data):
+    tok=""
+    temp=""
+    tempStart=False
+    for char in data:
+        tok+=char
+        if tok == "PRES = ":
+            tempStart=True
+            tok=""
+        elif tempStart==True:
+            if char in list("0123456789"):
+                temp+=char
+            elif char=="º" or char=="C":
+                tempStart=False
+            tok=""
+    return temp
+
 def readH(data):
     tok=""
     hum=""
@@ -78,7 +95,8 @@ def readTHWL(data):
     h=readH(data[1])
     w=readW(data[2])
     l=readL(data[3])
-    return t,h,w,l
+    p=readP(data[4])
+    return t,h,w,l,p
 
 arduino = serial.Serial(serial.tools.list_ports.comports()[0].device, 9600)
 data=[]

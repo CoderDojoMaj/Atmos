@@ -23,7 +23,9 @@ kbds={
 	InlineKeyboardButton("Humedad",
 	callback_data='Humedad')],
 	[InlineKeyboardButton("Luz",
-	callback_data='Luz')]], # TODO: add pressure button
+	callback_data='Luz'),
+        InlineKeyboardButton("Presion",
+	callback_data='Presion')]],
 
         "Temperatura": [[InlineKeyboardButton("Temp. Max.",
 	callback_data='TMax'),
@@ -36,10 +38,7 @@ kbds={
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
 
 	"Humedad": [[InlineKeyboardButton("Humedad Actual",
-	callback_data='HActual'),
-	# TODO: Remove water sensor
-	InlineKeyboardButton("Sensor de Agua",
-	callback_data='HAgua')],
+	callback_data='HActual')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
 
 	"Luz": [[InlineKeyboardButton("Luminosidad Max.",
@@ -48,9 +47,17 @@ kbds={
 	callback_data='LMin'),
         InlineKeyboardButton("Luminosidad Actual",
 	callback_data='LActual')],
-	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]]
+	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
 
-	# TODO: Add pressure menu
+        "Presion": [[InlineKeyboardButton("Presion Max.",
+	callback_data='PMax'),
+	InlineKeyboardButton("Presion Min.",
+	callback_data='PMin'),
+        InlineKeyboardButton("Presion Actual",
+	callback_data='PActual'),
+        InlineKeyboardButton("Presion Media",
+	callback_data='PMedia')],
+	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
 }
 
 def opt(bot, update):
@@ -79,19 +86,18 @@ def updatemenu(bot, update, query, msgId, kbdId):
         elif (kbdId=='HActual'):
             bot.send_message(chat_id=query.message.chat_id, text="Humedad Actual: "+parseData.readTHWL(data)[1])
             return
-		# TODO: Remove water sensor
-        elif (kbdId=='HAgua'):
-            bot.send_message(chat_id=query.message.chat_id, text="Sensor de Agua: "+parseData.readTHWL(data)[2])
-            return
         elif (kbdId=='LActual'):
             bot.send_message(chat_id=query.message.chat_id, text="Luminosidad Actual: "+parseData.readTHWL(data)[3])
             return
-		# TODO: Add pressure sensor
-        invalidMsg = bot.send_message(chat_id=query.message.chat_id,
-                         text="Id Invalida")
-        time.sleep(3)
-        bot.delete_message(chat_id=invalidMsg.chat_id,
-                            message_id=invalidMsg.message_id)
+        elif (kbdId=="PActual"):
+            bot.send_message(chat_id=query.message.chat_id, text="Presion Actual: "+parseData.readTHWL(data)[4])
+            return
+        else:
+            invalidMsg = bot.send_message(chat_id=query.message.chat_id,
+                             text="Id Invalida")
+            time.sleep(3)
+            bot.delete_message(chat_id=invalidMsg.chat_id,
+                                message_id=invalidMsg.message_id)
     query.answer()
     #bot.answer_callback_query(callback_query_id=msgId)
 

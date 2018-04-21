@@ -12,12 +12,13 @@ logger = logging.getLogger(__name__)
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 
-from MySQL import getTranslation, getConnection
+import MySQL
 from Utils import sprint
 
 #Commands
 
 lang="EN"
+db_connection = MySQL.getConnection('root', 'root', 'Atmos')
 txtIds=[]
 
 kbds={
@@ -74,8 +75,16 @@ def updatemenu(bot, update, query, msgId, kbdId):
     try:
         reply_markup = InlineKeyboardMarkup(kbds[kbdId])
 
-		# TODO: Update for translation support
-        bot.edit_message_text(text="Menu %s" % kbdId,
+        localized_manu_name = "ERROR"
+        if kbdId == 'Principal':
+            localized_manu_name = MySQL.getTranslation(db_connection, 'main_menu')
+        elif kbdId == 'Temperatura':
+	        localized_manu_name = MySQL.getTranslation(db_connection, 'tmp_menu')
+        elif kbdId == 'Humedad':
+	        localized_manu_name = MySQL.getTranslation(db_connection, 'hum_menu')
+        elif kbdId == 'Presion':
+	        localized_manu_name = MySQL.getTranslation(db_connection, 'prs_menu')
+        bot.edit_message_text(text=localized_manu_name,
                                   chat_id=query.message.chat_id,
                                   message_id=query.message.message_id,
                                   reply_markup=reply_markup)
@@ -112,7 +121,7 @@ def button(bot, update):
     updatemenu(bot, update, query, query.message.message_id, query.data)
 
 def changeLang(toLang): #IDK IF THIS HAS TO GET PARAMETERS ~ Víctor
-    
+
     getTranslation(getConnection("root","root","Atmos"),)
 
 def main():

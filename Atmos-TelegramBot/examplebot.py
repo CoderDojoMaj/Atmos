@@ -1,6 +1,7 @@
 # coding: utf8
 #Other imports
 import time, parseData
+from functools import partial
 
 #Logging Config
 import logging
@@ -11,9 +12,13 @@ logger = logging.getLogger(__name__)
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 
+from MySQL import getTranslation, getConnection
 from Utils import sprint
 
 #Commands
+
+lang="EN"
+txtIds=[]
 
 kbds={
 	# TODO: Update for translation support
@@ -87,10 +92,10 @@ def updatemenu(bot, update, query, msgId, kbdId):
             bot.send_message(chat_id=query.message.chat_id, text="Humedad Actual: "+parseData.readTHWL(data)[1])
             return
         elif (kbdId=='LActual'):
-            bot.send_message(chat_id=query.message.chat_id, text="Luminosidad Actual: "+parseData.readTHWL(data)[3])
+            bot.send_message(chat_id=query.message.chat_id, text="Luminosidad Actual: "+parseData.readTHWL(data)[2])
             return
         elif (kbdId=="PActual"):
-            bot.send_message(chat_id=query.message.chat_id, text="Presion Actual: "+parseData.readTHWL(data)[4])
+            bot.send_message(chat_id=query.message.chat_id, text="Presion Actual: "+parseData.readTHWL(data)[3])
             return
         else:
             invalidMsg = bot.send_message(chat_id=query.message.chat_id,
@@ -106,6 +111,10 @@ def button(bot, update):
 
     updatemenu(bot, update, query, query.message.message_id, query.data)
 
+def changeLang(toLang): #IDK IF THIS HAS TO GET PARAMETERS ~ Víctor
+    
+    getTranslation(getConnection("root","root","Atmos"),)
+
 def main():
 	updater = Updater(token='500779322:AAHmBMF_nV48qNet4IMfgNmcOW5tuQ7ojdI')
 	dispatcher = updater.dispatcher
@@ -113,11 +122,15 @@ def main():
 	#Handlers
 	start_handler = CommandHandler('start',opt)
 	opt_handler = CommandHandler('options',opt)
+	es_handler = CommandHandler('spanish',partial(changeLang,"ES")) #Partial is for putting parameters to the call ~ Víctor
+	en_handler = CommandHandler('english',partial(changeLang,"EN"))
 	btn_handler = CallbackQueryHandler(button)
 
 	#Register handlers
 	dispatcher.add_handler(start_handler)
 	dispatcher.add_handler(opt_handler)
+	dispatcher.add_handler(es_handler)
+	dispatcher.add_handler(en_handler)
 	dispatcher.add_handler(btn_handler)
 
 	#Start & run until Ctrl+C

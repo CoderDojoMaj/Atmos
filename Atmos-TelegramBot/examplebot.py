@@ -122,7 +122,7 @@ def button(bot, update):
 
 def changeLang(toLang): #IDK IF THIS HAS TO GET PARAMETERS ~ Víctor
 
-    getTranslation(getConnection("root","root","Atmos"),)
+    MySQL.getTranslation(MySQL.getConnection("root","root","Atmos"),)
 
 def main():
 	updater = Updater(token='500779322:AAHmBMF_nV48qNet4IMfgNmcOW5tuQ7ojdI')

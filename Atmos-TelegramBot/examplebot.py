@@ -24,52 +24,60 @@ txtIds=[]
 kbds={
 	# TODO: Update for translation support
 
-	"Principal": [[InlineKeyboardButton("Temperatura",
+	"Principal": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'tmp'),
 	callback_data='Temperatura'),
-	InlineKeyboardButton("Humedad",
+	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'hum'),
 	callback_data='Humedad')],
-	[InlineKeyboardButton("Luz",
+	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'lig'),
 	callback_data='Luz'),
-        InlineKeyboardButton("Presion",
+        InlineKeyboardButton(MySQL.getTranslation(db_connection, 'prs'),
 	callback_data='Presion')]],
 
-        "Temperatura": [[InlineKeyboardButton("Temp. Max.",
+    "Temperatura": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_tmp'),
 	callback_data='TMax'),
-	InlineKeyboardButton("Temp. Min",
+	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_tmp'),
 	callback_data='TMin')],
-	[InlineKeyboardButton("Temp. Media",
+	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_tmp'),
 	callback_data='TMedia'),
-	InlineKeyboardButton("Temp. Actual",
+	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_tmp'),
 	callback_data='TActual')],
+	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'back'), callback_data='@back')]],
+
+	"Humedad": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_hum'),
+	callback_data='HMax'),
+	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_hum'),
+	callback_data='HMin')]
+	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_hum'),
+	callback_data='HMedia'),
+	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_hum'),
+	callback_data='HActual')]
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
 
-	"Humedad": [[InlineKeyboardButton("Humedad Actual",
-	callback_data='HActual')],
-	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
-
-	"Luz": [[InlineKeyboardButton("Luminosidad Max.",
+	"Luz": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_lig'),
 	callback_data='LMax'),
-	InlineKeyboardButton("Luminosidad Min.",
-	callback_data='LMin'),
-        InlineKeyboardButton("Luminosidad Actual",
+	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_lig'),
+	callback_data='LMin')],
+    [InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_lig'),
+	callback_data='LMedia'),
+	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_lig'),
 	callback_data='LActual')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
 
-        "Presion": [[InlineKeyboardButton("Presion Max.",
+    "Presion": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_prs'),
 	callback_data='PMax'),
-	InlineKeyboardButton("Presion Min.",
+	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_prs'),
 	callback_data='PMin')],
-        [InlineKeyboardButton("Presion Actual",
-	callback_data='PActual'),
-        InlineKeyboardButton("Presion Media",
-	callback_data='PMedia')],
+    [InlineKeyboardButton("Presion Media",
+	callback_data='PMedia'),
+	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_prs'),
+	callback_data='PActual')],
 	[InlineKeyboardButton("Volver A Inicio", callback_data='@back')]],
 }
 
 def opt(bot, update):
 	# TODO: Update for translation support
     reply_markup = InlineKeyboardMarkup(kbds["Principal"])
-    update.message.reply_text('Menu principal', reply_markup=reply_markup)
+    update.message.reply_text(MySQL.getTranslation(db_connection, 'main_menu'), reply_markup=reply_markup)
 
 def updatemenu(bot, update, query, msgId, kbdId):
     try:
@@ -107,11 +115,9 @@ def updatemenu(bot, update, query, msgId, kbdId):
             bot.send_message(chat_id=query.message.chat_id, text="Presion Actual: "+parseData.readTHWL(data)[3])
             return
         else:
-            invalidMsg = bot.send_message(chat_id=query.message.chat_id,
-                             text="Id Invalida")
+            invalidMsg = bot.send_message(chat_id=query.message.chat_id, text="Id Invalida")
             time.sleep(3)
-            bot.delete_message(chat_id=invalidMsg.chat_id,
-                                message_id=invalidMsg.message_id)
+            bot.delete_message(chat_id=invalidMsg.chat_id, message_id=invalidMsg.message_id)
     query.answer()
     #bot.answer_callback_query(callback_query_id=msgId)
 

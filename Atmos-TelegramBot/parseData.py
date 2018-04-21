@@ -54,22 +54,22 @@ def readH(data):
             tok=""
     return hum
 
-def readW(data):
-    tok=""
-    wat=""
-    watStart=False
-    for char in data:
-        tok+=char
-        if tok == "WATER = ":
-            watStart=True
-            tok=""
-        elif watStart==True:
-            if char in list("0123456789"):
-                wat+=char
-            elif char=="%":
-                watStart=False
-            tok=""
-    return wat
+##def readW(data):
+##    tok=""
+##    wat=""
+##    watStart=False
+##    for char in data:
+##        tok+=char
+##        if tok == "WATER = ":
+##            watStart=True
+##            tok=""
+##        elif watStart==True:
+##            if char in list("0123456789"):
+##                wat+=char
+##            elif char=="%":
+##                watStart=False
+##            tok=""
+##    return wat
 
 def readL(data):
     tok=""
@@ -93,10 +93,9 @@ def readTHWL(data):
     sprint(data)
     t=readT(data[0])
     h=readH(data[1])
-    w=readW(data[2])
-    l=readL(data[3])
-    p=readP(data[4])
-    return t,h,w,l,p
+    l=readL(data[2])
+    p=readP(data[3])
+    return t,h,l,p
 
 arduino = serial.Serial(serial.tools.list_ports.comports()[0].device, 9600)
 data=[]

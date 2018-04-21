@@ -26,6 +26,11 @@ INSERT INTO Lang(ID, EN, ES) VALUES('hum_menu', 'Humidity menu', 'Menú humedad'
 INSERT INTO Lang(ID, EN, ES) VALUES('lig_menu', 'Light menu', 'Menú luz');
 INSERT INTO Lang(ID, EN, ES) VALUES('prs_menu', 'Pressure menu', 'Menú presión');
 
+INSERT INTO Lang(ID, EN, ES) VALUES('tmp', 'Temperature', 'Temperatura');
+INSERT INTO Lang(ID, EN, ES) VALUES('hum', 'Humidity', 'Humedad');
+INSERT INTO Lang(ID, EN, ES) VALUES('lig', 'Light', 'Luz');
+INSERT INTO Lang(ID, EN, ES) VALUES('prs', 'Pressure', 'Presión');
+
 INSERT INTO Lang(ID, EN, ES) VALUES('max_tmp', 'Max. temp.', 'Temp. máx.');
 INSERT INTO Lang(ID, EN, ES) VALUES('min_tmp', 'Min. temp.', 'Temp. mín.');
 INSERT INTO Lang(ID, EN, ES) VALUES('avg_tmp', 'Avg. temp.', 'Temp. media');

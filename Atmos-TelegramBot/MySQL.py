@@ -65,6 +65,9 @@ def getTranslation(connection, txt_id, lang_code):
     available_lang_codes = ['EN', 'ES']
     if lang_code in available_lang_codes:
         statement = 'SELECT {} FROM Lang WHERE ID = \'{}\''.format(lang_code, txt_id);
-        run(connection, statement)
+        resultado = run(connection, statement)
+        primer = resultado.next()
+        texto = primer[0]
+        return texto
     else:
         sprint(lang_code, 'is not an available language code')

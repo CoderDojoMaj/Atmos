@@ -57,3 +57,4 @@ INSERT INTO Lang(ID, EN, ES) VALUES('avg_lig', 'Avg. light', 'Luz media');
 INSERT INTO Lang(ID, EN, ES) VALUES('cur_lig', 'Current light', 'Luz actual');
 
 INSERT INTO Lang(ID, EN, ES) VALUES('back', 'Go back', 'Volver');
+INSERT INTO Lang(ID, EN, ES) VALUES('invalid_id', 'Invalid ID', 'ID inválida');

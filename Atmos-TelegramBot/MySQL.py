@@ -60,6 +60,10 @@ def addMeteoData(connection, temp, hum, luz, pres):
     # sprint(statement)
     run(connection, statement)
 
+def getLastLecture(connection):
+    statement = "select * from MeteoData order by fecha desc limit 1;"
+    return run(connection, statement)
+
 # See available languages and text ids in the setupDB.sql file
 def getTranslation(connection, txt_id, lang_code):
     available_lang_codes = ['EN', 'ES']

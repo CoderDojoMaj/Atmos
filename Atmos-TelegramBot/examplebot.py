@@ -13,6 +13,8 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 
 import MySQL
+
+from time import time
 # Use this instead of print so that the output can be seen in a server environment
 from Utils import sprint
 
@@ -91,15 +93,14 @@ def updatemenu(bot, update, query, msgId, kbdId):
 	        localized_manu_name = MySQL.getTranslation(db_connection, 'hum_menu', lang)
         elif kbdId == 'Presion':
 	        localized_manu_name = MySQL.getTranslation(db_connection, 'prs_menu', lang)
-	    elif kbdId == 'Luz':
+        elif kbdId == 'Luz':
 	        localized_manu_name = MySQL.getTranslation(db_connection, 'lig_menu', lang)
         bot.edit_message_text(text=localized_manu_name,
                                   chat_id=query.message.chat_id,
                                   message_id=query.message.message_id,
                                   reply_markup=reply_markup)
     except KeyError:
-		# TODO: Update for translation support
-        data = parseData.readArduino([])
+        data = MySQL.getLastLecture(db_connection)[0]
         if(kbdId=='@back'):
             updatemenu(bot, update, query, msgId, "Principal")
             return data
@@ -151,6 +152,15 @@ def main():
 	#Start & run until Ctrl+C
 	updater.start_polling()
 	updater.idle()
+
+	ultimaFecha = 0
+	while True:
+		if time() >= (ultimaFecha + 60000):
+			sprint('lectura')
+			data = parseData.readTHWL(parseData.readArduino([]))
+			MySQL.addMeteoData(db_connection, data[0], data[1], data[2], data[3])
+			ultimaFecha = time()
+
 
 if __name__ == '__main__':
 	main()

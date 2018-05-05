@@ -61,7 +61,19 @@ def addMeteoData(connection, temp, hum, luz, pres):
     run(connection, statement)
 
 def getLastLecture(connection):
-    statement = "select * from MeteoData order by fecha desc limit 1;"
+    statement = "select temp,hum,luz,pres from MeteoData order by fecha desc limit 1;"
+    return run(connection, statement)
+
+def getAvg(connection):
+    statement = "SELECT AVG(temp),AVG(hum),AVG(luz),AVG(pres) FROM MeteoData WHERE fecha>date_sub(now(),interval 1 day);"
+    return run(connection, statement)
+
+def getMax(connection):
+    statement = "SELECT MAX(temp),MAX(hum),MAX(luz),MAX(pres) FROM MeteoData WHERE fecha>date_sub(now(),interval 1 day);"
+    return run(connection, statement)
+
+def getMin(connection):
+    statement = "SELECT MIN(temp),MIN(hum),MIN(luz),MIN(pres) FROM MeteoData WHERE fecha>date_sub(now(),interval 1 day);"
     return run(connection, statement)
 
 # See available languages and text ids in the setupDB.sql file

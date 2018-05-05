@@ -122,49 +122,49 @@ def updatemenu(bot, update, query, msgId, kbdId):
             bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_tmp', lang)+": "+temp)
             return
         elif (kbdId=='HActual'):
-            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_hum', lang)+hum)
+            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_hum', lang)+": "+hum)
             return
         elif (kbdId=='LActual'):
-            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_lig', lang)+lig)
+            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_lig', lang)+": "+lig)
             return
         elif (kbdId=="PActual"):
-            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_prs', lang)+prs)
+            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_prs', lang)+": "+prs)
             return
         elif (kbdId=='TMedia'):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_tmp', lang)+": "+temp)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'avg_tmp', lang)+": "+temp)
 	        return
         elif (kbdId=='HMedia'):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_hum', lang)+hum)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'avg_hum', lang)+": "+hum)
 	        return
         elif (kbdId=='LMedia'):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_lig', lang)+lig)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'avg_lig', lang)+": "+lig)
 	        return
         elif (kbdId=="PMedia"):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_prs', lang)+prs)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'avg_prs', lang)+": "+prs)
 	        return
         elif (kbdId=='TMax'):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_tmp', lang)+": "+temp)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'max_tmp', lang)+": "+temp)
 	        return
         elif (kbdId=='HMax'):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_hum', lang)+hum)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'max_hum', lang)+": "+hum)
 	        return
         elif (kbdId=='LMax'):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_lig', lang)+lig)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'max_lig', lang)+": "+lig)
 	        return
         elif (kbdId=="PMax"):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_prs', lang)+prs)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'max_prs', lang)+": "+prs)
 	        return
         elif (kbdId=='TMin'):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_tmp', lang)+": "+temp)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'min_tmp', lang)+": "+temp)
 	        return
         elif (kbdId=='HMin'):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_hum', lang)+hum)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'min_hum', lang)+": "+hum)
 	        return
         elif (kbdId=='LMin'):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_lig', lang)+lig)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'min_lig', lang)+": "+lig)
 	        return
         elif (kbdId=="PMin"):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_prs', lang)+prs)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'min_prs', lang)+prs)
 	        return
         else:
             invalidMsg = bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'invalid_id', lang))

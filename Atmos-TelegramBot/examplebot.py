@@ -103,7 +103,7 @@ def updatemenu(bot, update, query, msgId, kbdId):
         lastLecture = None
         if kbdId.endswith('Actual'):
             lastLecture = MySQL.getLastLecture(db_connection)
-        elif kbdId.endswith('Actual'):
+        elif kbdId.endswith('Media'):
 	        lastLecture = MySQL.getAvg(db_connection)
         elif kbdId.endswith('Max'):
 	        lastLecture = MySQL.getMax(db_connection)

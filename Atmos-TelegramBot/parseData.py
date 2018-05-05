@@ -1,4 +1,4 @@
-import serial, time, serial.tools.list_ports
+import serial, serial.tools.list_ports
 from multiprocessing import Process
 from Utils import sprint
 

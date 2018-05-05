@@ -100,25 +100,30 @@ def updatemenu(bot, update, query, msgId, kbdId):
                                   message_id=query.message.message_id,
                                   reply_markup=reply_markup)
     except KeyError:
-        data = MySQL.getLastLecture(db_connection)[0]
+        lastLecture = MySQL.getLastLecture(db_connection)
+        (temp, hum, lig, prs) = None
+        if len(lastLecture) > 0:
+            (temp, hum, lig, prs) = lastLecture[0]
+        else:
+            (temp, hum, lig, prs) = 'NO DATA'
         if(kbdId=='@back'):
             updatemenu(bot, update, query, msgId, "Principal")
-            return data
+            return
         elif (kbdId=='TActual'):
-            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_tmp', lang)+": "+parseData.readTHWL(data)[0])
+            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_tmp', lang)+": "+temp)
             return
         elif (kbdId=='HActual'):
-            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_hum', lang)+parseData.readTHWL(data)[1])
+            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_hum', lang)+hum)
             return
         elif (kbdId=='LActual'):
-            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_lig', lang)+parseData.readTHWL(data)[2])
+            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_lig', lang)+lig)
             return
         elif (kbdId=="PActual"):
-            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_prs', lang)+parseData.readTHWL(data)[3])
+            bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'cur_prs', lang)+prs)
             return
         else:
             invalidMsg = bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'invalid_id', lang))
-            time.sleep(3) # porque esta esto aqui?  ~Juan
+            time.sleep(3)
             bot.delete_message(chat_id=invalidMsg.chat_id, message_id=invalidMsg.message_id)
     query.answer()
 

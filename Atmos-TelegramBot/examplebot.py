@@ -205,6 +205,7 @@ def main():
 
 	ultimaFecha = 0
 	while True:
+	    sprint('looping ...')
 		if time() >= (ultimaFecha + 60000):
 			sprint('lectura')
 			data = parseData.readTHWL(parseData.readArduino([]))

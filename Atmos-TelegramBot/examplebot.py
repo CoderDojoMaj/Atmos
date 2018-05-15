@@ -176,7 +176,6 @@ def button(bot, update):
     query = update.callback_query
 
     updatemenu(bot, update, query, query.message.message_id, query.data)
-
 def changeLang(toLang):
     global lang
     lang = toLang
@@ -188,7 +187,7 @@ def main():
 	#Handlers
 	start_handler = CommandHandler('start',opt)
 	opt_handler = CommandHandler('options',opt)
-	es_handler = CommandHandler('spanish',partial(changeLang,"ES")) #Partial is for putting parameters to the call ~ Víctor
+	es_handler = CommandHandler('spanish',partial(changeLang,"ES"))
 	en_handler = CommandHandler('english',partial(changeLang,"EN"))
 	btn_handler = CallbackQueryHandler(button)
 

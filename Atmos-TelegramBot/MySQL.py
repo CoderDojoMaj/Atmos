@@ -10,7 +10,7 @@ host = '127.0.0.1'
 def getConnection(user, password, database):
     try:
         return mysql.connector.connect(user=user, password=password,
-                                database=database)
+                                database=database,autocommit=True)
 
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:

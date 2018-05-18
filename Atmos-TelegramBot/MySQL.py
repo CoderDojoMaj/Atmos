@@ -9,8 +9,12 @@ from Utils import sprint
 host = '127.0.0.1'
 def getConnection(user, password, database):
     try:
-        return mysql.connector.connect(user=user, password=password,
+        r = mysql.connector.connect(user=user, password=password,
                                 database=database,autocommit=True)
+        if r is None:
+            sprint('Couldn\'t connect to the database')
+            exit(1)
+        return r
 
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -19,6 +23,7 @@ def getConnection(user, password, database):
             sprint("Database does not exist")
         else:
             sprint(err)
+        exit(1)
 
 
 def run(connection, comm):
@@ -61,15 +66,15 @@ def addMeteoData(connection, temp, hum, luz, pres):
     run(connection, statement)
 
 def getLastLecture(connection):
-    statement = "select temp,hum,luz,pres from MeteoData order by fecha desc limit 1;"
+    statement = "select temp as tempf,hum as humf,luz as ligf,pres as prsf from MeteoData order by fecha desc limit 1;"
     return run(connection, statement)
 
 def getAvg(connection):
-    statement = "SELECT AVG(temp),AVG(hum),AVG(luz),AVG(pres) FROM MeteoData WHERE fecha>date_sub(now(),interval 1 day);"
+    statement = "SELECT AVG(temp) as tempf,AVG(hum) as humf,AVG(luz) as ligf,AVG(pres) as prsf FROM MeteoData WHERE fecha>date_sub(now(),interval 1 day);"
     return run(connection, statement)
 
 def getMax(connection):
-    statement = "SELECT MAX(temp),MAX(hum),MAX(luz),MAX(pres) FROM MeteoData WHERE fecha>date_sub(now(),interval 1 day);"
+    statement = "SELECT MAX(temp) as tempf,MAX(hum) as humf,MAX(luz) as ligf,MAX(pres) as prsf FROM MeteoData WHERE fecha>date_sub(now(),interval 1 day);"
     return run(connection, statement)
 
 def getMin(connection):

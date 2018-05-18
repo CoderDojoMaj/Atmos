@@ -22,67 +22,69 @@ from Utils import sprint
 
 lang="EN"
 db_connection = MySQL.getConnection('root', 'root', 'Atmos')
+
 txtIds=[]
 
-kbds={
+def getKbds():
+    return {
 
-	"Principal": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'tmp', lang),
-	callback_data='Temperatura'),
-	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'hum', lang),
-	callback_data='Humedad')],
-	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'lig', lang),
-	callback_data='Luz'),
-        InlineKeyboardButton(MySQL.getTranslation(db_connection, 'prs', lang),
-	callback_data='Presion')]],
+		"Principal": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'tmp', lang),
+		callback_data='Temperatura'),
+		InlineKeyboardButton(MySQL.getTranslation(db_connection, 'hum', lang),
+		callback_data='Humedad')],
+		[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'lig', lang),
+		callback_data='Luz'),
+	        InlineKeyboardButton(MySQL.getTranslation(db_connection, 'prs', lang),
+		callback_data='Presion')]],
 
-    "Temperatura": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_tmp', lang),
-	callback_data='TMax'),
-	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_tmp', lang),
-	callback_data='TMin')],
-	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_tmp', lang),
-	callback_data='TMedia'),
-	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_tmp', lang),
-	callback_data='TActual')],
-	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'back', lang), callback_data='@back')]],
+	    "Temperatura": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_tmp', lang),
+		callback_data='TMax'),
+		InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_tmp', lang),
+		callback_data='TMin')],
+		[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_tmp', lang),
+		callback_data='TMedia'),
+		InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_tmp', lang),
+		callback_data='TActual')],
+		[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'back', lang), callback_data='@back')]],
 
-	"Humedad": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_hum', lang),
-	callback_data='HMax'),
-	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_hum', lang),
-	callback_data='HMin')]
-	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_hum', lang),
-	callback_data='HMedia'),
-	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_hum', lang),
-	callback_data='HActual')]
-	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'back', lang), callback_data='@back')]],
+		"Humedad": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_hum', lang),
+		callback_data='HMax'),
+		InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_hum', lang),
+		callback_data='HMin')],
+		[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_hum', lang),
+		callback_data='HMedia'),
+		InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_hum', lang),
+		callback_data='HActual')],
+		[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'back', lang), callback_data='@back')]],
 
-	"Luz": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_lig', lang),
-	callback_data='LMax'),
-	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_lig', lang),
-	callback_data='LMin')],
-    [InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_lig', lang),
-	callback_data='LMedia'),
-	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_lig', lang),
-	callback_data='LActual')],
-	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'back', lang), callback_data='@back')]],
+		"Luz": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_lig', lang),
+		callback_data='LMax'),
+		InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_lig', lang),
+		callback_data='LMin')],
+	    [InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_lig', lang),
+		callback_data='LMedia'),
+		InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_lig', lang),
+		callback_data='LActual')],
+		[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'back', lang), callback_data='@back')]],
 
-    "Presion": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_prs', lang),
-	callback_data='PMax'),
-	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_prs', lang),
-	callback_data='PMin')],
-    [InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_prs', lang),
-	callback_data='PMedia'),
-	InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_prs', lang),
-	callback_data='PActual')],
-	[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'back', lang), callback_data='@back')]],
-}
+	    "Presion": [[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'max_prs', lang),
+		callback_data='PMax'),
+		InlineKeyboardButton(MySQL.getTranslation(db_connection, 'min_prs', lang),
+		callback_data='PMin')],
+	    [InlineKeyboardButton(MySQL.getTranslation(db_connection, 'avg_prs', lang),
+		callback_data='PMedia'),
+		InlineKeyboardButton(MySQL.getTranslation(db_connection, 'cur_prs', lang),
+		callback_data='PActual')],
+		[InlineKeyboardButton(MySQL.getTranslation(db_connection, 'back', lang), callback_data='@back')]],
+	}
 
 def opt(bot, update):
-    reply_markup = InlineKeyboardMarkup(kbds["Principal"])
+    reply_markup = InlineKeyboardMarkup(getKbds()["Principal"])
     update.message.reply_text(MySQL.getTranslation(db_connection, 'main_menu', lang), reply_markup=reply_markup)
 
 def updatemenu(bot, update, query, msgId, kbdId):
     try:
-        reply_markup = InlineKeyboardMarkup(kbds[kbdId])
+        reply_markup = InlineKeyboardMarkup(getKbds()[kbdId])
 
         localized_manu_name = "ERROR"
         if kbdId == 'Principal':
@@ -100,21 +102,34 @@ def updatemenu(bot, update, query, msgId, kbdId):
                                   message_id=query.message.message_id,
                                   reply_markup=reply_markup)
     except KeyError:
-        lastLecture = None
-        if kbdId.endswith('Actual'):
-            lastLecture = MySQL.getLastLecture(db_connection)
-        elif kbdId.endswith('Media'):
-	        lastLecture = MySQL.getAvg(db_connection)
-        elif kbdId.endswith('Max'):
-	        lastLecture = MySQL.getMax(db_connection)
-        elif kbdId.endswith('Min'):
-	        lastLecture = MySQL.getMin(db_connection)
+        if not kbdId=='@back':
+            lastLecture = None
+            if kbdId.endswith('Actual'):
+                lastLecture = MySQL.getLastLecture(db_connection)
+            elif kbdId.endswith('Media'):
+	            lastLecture = MySQL.getAvg(db_connection)
+            elif kbdId.endswith('Max'):
+	            lastLecture = MySQL.getMax(db_connection)
+            elif kbdId.endswith('Min'):
+	            lastLecture = MySQL.getMin(db_connection)
 
-        (temp, hum, lig, prs) = None
-        if len(lastLecture) > 0:
-            (temp, hum, lig, prs) = lastLecture[0]
-        else:
-            (temp, hum, lig, prs) = 'NO DATA'
+            temp = None
+            hum = None
+            lig = None
+            prs = None
+            #sprint(lastLecture.column_names)
+            res = lastLecture.fetchall()[0]
+            sprint(res)
+            temp, hum, lig, prs = res
+            temp, hum, lig, prs = str(temp), str(hum), str(lig), str(prs)
+
+        # if len(lastLecture) > 0:
+        #for tempf, humf, ligf, prsf in lastLecture:
+        #    temp, hum, lig, prs = tempf, humf, ligf, prsf
+        #    sprint(tempf, humf, ligf, prsf)
+        #    break;
+        #else:
+        #    (temp, hum, lig, prs) = 'NO DATA'
         if(kbdId=='@back'):
             updatemenu(bot, update, query, msgId, "Principal")
             return
@@ -176,9 +191,13 @@ def button(bot, update):
     query = update.callback_query
 
     updatemenu(bot, update, query, query.message.message_id, query.data)
-def changeLang(toLang):
+def changeLang(toLang, bot, update):
     global lang
     lang = toLang
+    reply_markup = InlineKeyboardMarkup(getKbds()["Principal"])
+    print(str(bot))
+    print(str(update))
+    update.message.reply_text(MySQL.getTranslation(db_connection, 'main_menu', lang), reply_markup=reply_markup)
 
 def main():
 	updater = Updater(token='500779322:AAHmBMF_nV48qNet4IMfgNmcOW5tuQ7ojdI')
@@ -200,16 +219,20 @@ def main():
 
 	#Start & run until Ctrl+C
 	updater.start_polling()
-	updater.idle()
 
-	ultimaFecha = 0
-	while True:
-		sprint('looping ...')
-		if time() >= (ultimaFecha + 60000):
-			sprint('lectura')
-			data = parseData.readTHWL(parseData.readArduino([]))
-			MySQL.addMeteoData(db_connection, data[0], data[1], data[2], data[3])
-			ultimaFecha = time()
+	try:
+		ultimaFecha = 0
+		while True:
+			#sprint('looping:', ultimaFecha, time())
+			if time() >= (ultimaFecha + 60000):
+				sprint('lectura')
+				data = parseData.readTHWL(parseData.readArduino([]))
+				MySQL.addMeteoData(db_connection, data[0], data[1], data[2], data[3])
+				ultimaFecha = time()
+	except:
+		#updater.idle()
+		db_connection.close()
+		exit(0)
 
 
 if __name__ == '__main__':

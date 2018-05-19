@@ -96,8 +96,12 @@ def readTHWL(data):
     l=readL(data[2])
     p=readP(data[3])
     return t,h,l,p
-
-arduino = serial.Serial(serial.tools.list_ports.comports()[0].device, 9600)
+i = 0
+for port in serial.tools.list_ports.comports():
+    sprint(i, port.device)
+    i = i + 1
+p = input('Select the port number: ')
+arduino = serial.Serial(serial.tools.list_ports.comports()[int(p)].device, 9600)
 data=[]
 
 def readArduino(data=[]):

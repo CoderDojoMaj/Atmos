@@ -118,7 +118,11 @@ def updatemenu(bot, update, query, msgId, kbdId):
             lig = None
             prs = None
             #sprint(lastLecture.column_names)
-            res = lastLecture.fetchall()[0]
+            res = None
+            try:
+                res = lastLecture.fetchall()[0]
+            except IndexError:
+                res = None
             sprint(res)
             temp, hum, lig, prs = res
             temp, hum, lig, prs = str(temp), str(hum), str(lig), str(prs)

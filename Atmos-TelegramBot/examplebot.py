@@ -179,7 +179,7 @@ def updatemenu(bot, update, query, msgId, kbdId):
 	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'min_lig', lang)+": "+lig)
 	        return
         elif (kbdId=="PMin"):
-	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'min_prs', lang)+prs)
+	        bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'min_prs', lang)+": "+prs)
 	        return
         else:
             invalidMsg = bot.send_message(chat_id=query.message.chat_id, text=MySQL.getTranslation(db_connection, 'invalid_id', lang))

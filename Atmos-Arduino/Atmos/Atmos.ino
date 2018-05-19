@@ -12,6 +12,7 @@
 #define BMP_MISO 12
 #define BMP_MOSI 11 
 #define BMP_CS 10
+#define OK_LED 7
 
 dht11 DHT11;
 Adafruit_TSL2561_Unified tsl = Adafruit_TSL2561_Unified(TSL2561_ADDR_FLOAT, 12345);
@@ -26,16 +27,19 @@ void configureSensor(void)
 }
 
 void setup() {
+    pinMode(OK_LED, OUTPUT);
     Serial.begin(9600);
     if (!tsl.begin()){
-      /*Serial.print("Ooops, no TSL2561 detected ... Check your wiring or I2C ADDR!");*/
+      Serial.print("Ooops, no TSL2561 detected ... Check your wiring or I2C ADDR!");
       while (1);
     }
     if (!bme.begin()) {  
-      //Serial.println("Could not find a valid BMP280 sensor, check wiring!");
+      Serial.println("Could not find a valid BMP280 sensor, check wiring!");
       while (1);
     }
     configureSensor();
+    digitalWrite(OK_LED, HIGH);
+    //Serial.println("OK");
 }
 
 void loop() {
@@ -55,4 +59,3 @@ void loop() {
     Serial.println(event.light);
     delay(500);
 }
-

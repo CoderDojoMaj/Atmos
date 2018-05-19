@@ -69,7 +69,7 @@ def addMeteoData(connection, temp, hum, luz, pres):
     timestamp = strftime('%d-%m-%Y %H:%M:%S', localtime())
     statement = 'INSERT INTO MeteoData(fecha, temp, hum, luz, pres) VALUES(TIMESTAMP({}), {}, {}, {}, {});'.format(
         timestamp, temp, hum, luz, pres)
-    # sprint(statement)
+    sprint(temp, hum, luz, pres)
     run(connection, statement)
 
 def getLastLecture(connection):

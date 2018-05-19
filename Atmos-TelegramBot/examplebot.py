@@ -125,7 +125,8 @@ def updatemenu(bot, update, query, msgId, kbdId):
                 res = None
             sprint(res)
             temp, hum, lig, prs = res
-            temp, hum, lig, prs = str(temp), str(hum), str(lig), str(prs)
+            temp, hum, lig, prs = str(temp/100), str(hum/100), str(lig/100), str(prs/100)
+            # Data is stored *100
 
         # if len(lastLecture) > 0:
         #for tempf, humf, ligf, prsf in lastLecture:
@@ -231,7 +232,7 @@ def main():
 			if time() >= (ultimaFecha):
 				sprint('lectura')
 				data = parseData.readTHWL(parseData.readArduino([]))
-				MySQL.addMeteoData(db_connection, data[0], data[1], data[2], data[3])
+				MySQL.addMeteoData(db_connection, data[0], data[1], data[2], data[3]) # The data will be *100
 				ultimaFecha = time()
 	except:
 		#updater.idle()

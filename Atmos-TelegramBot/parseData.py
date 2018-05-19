@@ -86,6 +86,7 @@ def readL(data):
             elif char=="%":
                 lightStart=False
             tok=""
+    sprint(light)
     return light
 
 

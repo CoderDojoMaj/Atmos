@@ -29,6 +29,7 @@ def getConnection(user, password, database):
 
 def run(connection, comm):
     cursor = None
+    sprint(comm)
     try:
         cursor = connection.cursor()
     except mysql.connector.errors.OperationalError:

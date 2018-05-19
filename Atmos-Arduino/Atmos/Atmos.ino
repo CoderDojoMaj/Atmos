@@ -10,7 +10,7 @@
 #define DHT11PIN 8
 #define BMP_SCK 13
 #define BMP_MISO 12
-#define BMP_MOSI 11 
+#define BMP_MOSI 11
 #define BMP_CS 10
 #define OK_LED 7
 
@@ -33,7 +33,7 @@ void setup() {
       Serial.print("Ooops, no TSL2561 detected ... Check your wiring or I2C ADDR!");
       while (1);
     }
-    if (!bme.begin()) {  
+    if (!bme.begin()) {
       Serial.println("Could not find a valid BMP280 sensor, check wiring!");
       while (1);
     }
@@ -47,15 +47,15 @@ void loop() {
     sensors_event_t event;
     tsl.getEvent(&event);
     Serial.print("TEMP = ");
-    Serial.print(DHT11.temperature);
+    Serial.print(DHT11.temperature * 100);
     Serial.print(";");
     Serial.print("HUM = ");
-    Serial.print(DHT11.humidity);
+    Serial.print(DHT11.humidity * 100);
     Serial.print(";");
     Serial.print("PRES = ");
-    Serial.print(bme.readPressure()/100);
+    Serial.print(bme.readPressure()); // It's already *100
     Serial.print(";");
     Serial.print("LIGHT = ");
-    Serial.println(event.light);
+    Serial.println(event.light * 100);
     delay(500);
 }

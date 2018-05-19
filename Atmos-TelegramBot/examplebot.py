@@ -91,7 +91,7 @@ def updatemenu(bot, update, query, msgId, kbdId):
 	        localized_manu_name = MySQL.getTranslation(db_connection, 'hum_menu', lang)
         elif kbdId == 'Presion':
 	        localized_manu_name = MySQL.getTranslation(db_connection, 'prs_menu', lang)
-	    elif kbdId == 'Luz':
+        elif kbdId == 'Luz':
 	        localized_manu_name = MySQL.getTranslation(db_connection, 'lig_menu', lang)
         bot.edit_message_text(text=localized_manu_name,
                                   chat_id=query.message.chat_id,

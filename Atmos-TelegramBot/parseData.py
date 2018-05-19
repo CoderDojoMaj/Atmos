@@ -13,7 +13,7 @@ def readT(data):
             tempStart=True
             tok=""
         elif tempStart==True:
-            if char in list("0123456789"):
+            if char in list("0123456789."):
                 temp+=char
             elif char=="º" or char=="C":
                 tempStart=False
@@ -30,7 +30,7 @@ def readP(data):
             tempStart=True
             tok=""
         elif tempStart==True:
-            if char in list("0123456789"):
+            if char in list("0123456789."):
                 temp+=char
             elif char=="º" or char=="C":
                 tempStart=False
@@ -47,7 +47,7 @@ def readH(data):
             humStart=True
             tok=""
         elif humStart==True:
-            if char in list("0123456789"):
+            if char in list("0123456789."):
                 hum+=char
             elif char=="%":
                 humStart=False
@@ -81,7 +81,7 @@ def readL(data):
             lightStart=True
             tok=""
         elif lightStart==True:
-            if char in list("0123456789"):
+            if char in list("0123456789."):
                 light+=char
             elif char=="%":
                 lightStart=False

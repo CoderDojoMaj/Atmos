@@ -8,12 +8,13 @@ def readT(data):
     temp=""
     tempStart=False
     for char in data:
+        sprint(char, tok)
         tok+=char
         if tok == "TEMP = ":
             tempStart=True
             tok=""
         elif tempStart==True:
-            if char in list("0123456789"):
+            if char in list("0123456789."):
                 temp+=char
             elif char=="º" or char=="C":
                 tempStart=False
@@ -25,12 +26,13 @@ def readP(data):
     temp=""
     tempStart=False
     for char in data:
+        sprint(char, tok)
         tok+=char
         if tok == "PRES = ":
             tempStart=True
             tok=""
         elif tempStart==True:
-            if char in list("0123456789"):
+            if char in list("0123456789."):
                 temp+=char
             elif char=="º" or char=="C":
                 tempStart=False
@@ -42,12 +44,13 @@ def readH(data):
     hum=""
     humStart=False
     for char in data:
+        sprint(char, tok)
         tok+=char
         if tok == "HUM = ":
             humStart=True
             tok=""
         elif humStart==True:
-            if char in list("0123456789"):
+            if char in list("0123456789."):
                 hum+=char
             elif char=="%":
                 humStart=False
@@ -72,20 +75,23 @@ def readH(data):
 ##    return wat
 
 def readL(data):
+
     tok=""
     light=""
     lightStart=False
     for char in data:
+        sprint(char, tok)
         tok+=char
         if tok == "LIGHT = ":
             lightStart=True
             tok=""
         elif lightStart==True:
-            if char in list("0123456789"):
+            if char in list("0123456789."):
                 light+=char
             elif char=="%":
                 lightStart=False
             tok=""
+    sprint(light)
     return light
 
 
@@ -93,11 +99,16 @@ def readTHWL(data):
     sprint(data)
     t=readT(data[0])
     h=readH(data[1])
-    l=readL(data[2])
-    p=readP(data[3])
+    p=readP(data[2])
+    l=readL(data[3])
     return t,h,l,p
-
-arduino = serial.Serial(serial.tools.list_ports.comports()[0].device, 9600)
+i = 0
+for port in serial.tools.list_ports.comports():
+    sprint(i, port.device)
+    i = i + 1
+p = input('Select the port number: ')
+arduino = serial.Serial(serial.tools.list_ports.comports()[int(p)].device, 9600)
+sprint('Serial port open')
 data=[]
 
 def readArduino(data=[]):

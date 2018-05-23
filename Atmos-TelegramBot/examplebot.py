@@ -230,9 +230,10 @@ def main():
 		while True:
 			#sprint('looping:', ultimaFecha, time())
 			if time() >= (ultimaFecha):
-				sprint('lectura')
+				sprint('Read')
 				data = parseData.readTHWL(parseData.readArduino([]))
 				MySQL.addMeteoData(db_connection, data[0], data[1], data[2], data[3]) # The data will be *100
+				sprint('Read done')
 				ultimaFecha = time()
 	except:
 		#updater.idle()

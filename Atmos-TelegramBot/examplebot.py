@@ -232,8 +232,12 @@ def main():
 			if time() >= (ultimaFecha):
 				sprint('Read')
 				data = parseData.readTHWL(parseData.readArduino([]))
-				sprint(type(data[0]), type(data[1]), type(data[2]), type(data[3]))
-				MySQL.addMeteoData(db_connection, data[0], data[1], data[2], data[3]) # The data will be *100
+				#sprint(type(data[0]), type(data[1]), type(data[2]), type(data[3]))
+				if data[0] and data[1] and data[2] and data[3]:
+				    MySQL.addMeteoData(db_connection, data[0], data[1], data[2], data[3]) # The data will be *100
+				    sprint('Data inserted into the database')
+				else:
+				    sprint('Data was incomplete')
 				sprint('Read done')
 				ultimaFecha = time()
 	except:

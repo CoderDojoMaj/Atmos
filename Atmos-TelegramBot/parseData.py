@@ -42,6 +42,7 @@ def readH(data):
     hum=""
     humStart=False
     for char in data:
+        sprint(char, tok)
         tok+=char
         if tok == "HUM = ":
             humStart=True

@@ -71,6 +71,7 @@ def addMeteoData(connection, temp, hum, luz, pres):
         temp, hum, luz, pres)
     sprint(temp, hum, luz, pres)
     run(connection, statement)
+    connection.commit()
 
 def getLastLecture(connection):
     statement = "select temp as tempf,hum as humf,luz as ligf,pres as prsf from MeteoData order by fecha desc limit 1;"

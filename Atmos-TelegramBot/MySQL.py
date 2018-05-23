@@ -67,8 +67,8 @@ def changeDB(cnx, db):
 
 def addMeteoData(connection, temp, hum, luz, pres):
     timestamp = strftime('%d-%m-%Y %H:%M:%S', localtime())
-    statement = 'INSERT INTO MeteoData(fecha, temp, hum, luz, pres) VALUES(TIMESTAMP({}), {}, {}, {}, {});'.format(
-        timestamp, temp, hum, luz, pres)
+    statement = 'INSERT INTO MeteoData(fecha, temp, hum, luz, pres) VALUES(NOW(), {}, {}, {}, {});'.format(
+        temp, hum, luz, pres)
     sprint(temp, hum, luz, pres)
     run(connection, statement)
 

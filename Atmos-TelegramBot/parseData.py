@@ -8,6 +8,7 @@ def readT(data):
     temp=""
     tempStart=False
     for char in data:
+        sprint(char, tok)
         tok+=char
         if tok == "TEMP = ":
             tempStart=True
@@ -25,6 +26,7 @@ def readP(data):
     temp=""
     tempStart=False
     for char in data:
+        sprint(char, tok)
         tok+=char
         if tok == "PRES = ":
             tempStart=True
@@ -73,6 +75,7 @@ def readH(data):
 ##    return wat
 
 def readL(data):
+    sprint(char, tok)
     tok=""
     light=""
     lightStart=False

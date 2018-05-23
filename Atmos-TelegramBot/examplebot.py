@@ -228,7 +228,7 @@ def main():
 	try:
 		ultimaFecha = 0
 		while True:
-			#sprint('looping:', ultimaFecha, time())
+			sprint('looping:', ultimaFecha, time())
 			if time() >= (ultimaFecha):
 				sprint('Read')
 				data = parseData.readTHWL(parseData.readArduino([]))

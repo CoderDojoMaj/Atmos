@@ -75,11 +75,12 @@ def readH(data):
 ##    return wat
 
 def readL(data):
-    sprint(char, tok)
+
     tok=""
     light=""
     lightStart=False
     for char in data:
+        sprint(char, tok)
         tok+=char
         if tok == "LIGHT = ":
             lightStart=True
@@ -98,8 +99,8 @@ def readTHWL(data):
     sprint(data)
     t=readT(data[0])
     h=readH(data[1])
-    l=readL(data[2])
-    p=readP(data[3])
+    p=readP(data[2])
+    l=readL(data[3])
     return t,h,l,p
 i = 0
 for port in serial.tools.list_ports.comports():

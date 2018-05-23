@@ -103,6 +103,7 @@ for port in serial.tools.list_ports.comports():
     i = i + 1
 p = input('Select the port number: ')
 arduino = serial.Serial(serial.tools.list_ports.comports()[int(p)].device, 9600)
+sprint('Serial port open')
 data=[]
 
 def readArduino(data=[]):

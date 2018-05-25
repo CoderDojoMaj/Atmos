@@ -30,7 +30,7 @@ void setup() {
     pinMode(OK_LED, OUTPUT);
     Serial.begin(9600);
     if (!tsl.begin()){
-      Serial.print("Ooops, no TSL2561 detected ... Check your wiring or I2C ADDR!");
+      Serial.println("Ooops, no TSL2561 detected ... Check your wiring or I2C ADDR!");
       while (1);
     }
     if (!bme.begin()) {
